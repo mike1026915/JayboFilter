@@ -9,8 +9,16 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+
+import java.util.LinkedList;
 
 public class MainActivity extends AppCompatActivity {
+
+    private ListView filterDataListView;
+    private ArrayAdapter<String> adapter;
+    private LinkedList<String> filterData;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -18,6 +26,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        filterDataListView = (ListView) findViewById(R.id.filters);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -27,6 +37,18 @@ public class MainActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
+
+
+
+
+        filterData = new LinkedList<String>();
+        filterData.add("Test");
+        filterData.add("黎孝里");
+
+        adapter =  new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1, filterData);
+        filterDataListView.setAdapter(adapter);
+
+
 
         //startActivity(new Intent("android.settings.ACTION_NOTIFICATION_LISTENER_SETTINGS"));
         Intent startDetectionService = new Intent(MainActivity.this, JayboListenerService.class);
